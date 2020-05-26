@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+}
+
+group 'pro.gravit.launcher'
+version '1.0-SNAPSHOT'
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+repositories {
+    maven {
+        url "https://oss.sonatype.org/content/repositories/snapshots"
+    }
+    mavenCentral()
+}
+
+jar {
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    manifest {
+        attributes(
+                'Main-Class': 'pro.gravit.launcher.toolbox.ToolboxMain'
+        )
+    }
+}
+
+dependencies {
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+    implementation 'pro.gravit.launcher:launcher-core:5.1.6-SNAPSHOT'
+    implementation 'pro.gravit.launcher:launcher-ws-api:5.1.6-SNAPSHOT'
+    implementation 'org.fusesource.jansi:jansi:1.18'
+    implementation 'org.jline:jline:3.11.0'
+    implementation 'org.jline:jline-reader:3.11.0'
+    implementation 'org.jline:jline-terminal:3.11.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'io.netty:netty-codec-http:4.1.43.Final'
+    implementation 'commons-cli:commons-cli:1.4'
+}
